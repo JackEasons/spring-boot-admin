@@ -20,8 +20,6 @@ import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.springframework.boot.context.properties.ConstructorBinding;
@@ -89,7 +87,11 @@ public class UiController {
 	}
 
 	@ModelAttribute(value = "user", binding = false)
-	public Map<String, Object> getUser(@Nullable Principal principal) {
+	public Map<String, Object> getUser(
+			/*
+			 * @Nullable FIXME:
+			 * https://github.com/spring-projects/spring-framework/issues/25981
+			 */ Principal principal) {
 		if (principal != null) {
 			return singletonMap("name", principal.getName());
 		}
